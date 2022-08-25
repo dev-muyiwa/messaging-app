@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    tools:context=".ui.auth.LoginFragment">
+
+    <ImageView
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/login_image" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/phone_login"
+        android:textAlignment="center"
+        android:textColor="@color/blue"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/otp_text"
+        android:textAlignment="center"
+        android:textColor="#4E7AAA"
+        android:textSize="16sp" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="7dp"
+        app:cardElevation="7dp"
+        app:cardUseCompatPadding="true">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="14dp"
+            android:gravity="center"
+            android:padding="14dp">
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/country_code"
+                android:layout_width="wrap_content"
+                android:background="@drawable/search_bg"
+                app:ccp_showPhoneCode="true"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_countryAutoDetectionPref="SIM_NETWORK_LOCALE"
+                app:ccp_textSize="16sp"
+                app:ccp_showNameCode="false"
+                android:padding="6dp"
+                app:ccp_contentColor="?attr/colorControlNormal"
+                app:ccp_showFlag="false"
+                android:layout_height="wrap_content"/>
+
+            <EditText
+                android:id="@+id/phone_number_entry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/country_code"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/search_bg"
+                android:ems="1"
+                android:hint="@string/enter_your_phone_number"
+                android:inputType="phone"
+                android:padding="14dp"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/next_btn"
+                style="@style/Theme.MessagingApp.Button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/phone_number_entry"
+                android:layout_marginTop="14dp"
+                android:text="@string/next" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

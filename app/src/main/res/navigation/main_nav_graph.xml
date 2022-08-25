@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/allChatsFragment">
+    <fragment
+        android:id="@+id/allChatsFragment"
+        android:name="com.devmuyiwa.messagingapp.ui.chats.all.AllChatsFragment"
+        android:label="fragment_all_chats"
+        tools:layout="@layout/fragment_all_chats" >
+        <action
+            android:id="@+id/action_allChatsFragment_to_individualChatsFragment"
+            app:destination="@id/individualChatsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/individualChatsFragment"
+        android:name="com.devmuyiwa.messagingapp.ui.chats.individual.IndividualChatsFragment"
+        android:label="fragment_individual_chats"
+        tools:layout="@layout/fragment_individual_chats" >
+        <action
+            android:id="@+id/action_individualChatsFragment_to_allChatsFragment"
+            app:destination="@id/allChatsFragment"
+            app:popUpTo="@id/allChatsFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.devmuyiwa.messagingapp.ui.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_loginValidationFragment"
+            app:destination="@id/loginValidationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileSetupFragment"
+        android:name="com.devmuyiwa.messagingapp.ui.auth.ProfileSetupFragment"
+        android:label="fragment_profile_setup"
+        tools:layout="@layout/fragment_profile_setup" />
+    <fragment
+        android:id="@+id/loginValidationFragment"
+        android:name="com.devmuyiwa.messagingapp.ui.auth.LoginValidationFragment"
+        android:label="fragment_login_validation"
+        tools:layout="@layout/fragment_login_validation" >
+        <action
+            android:id="@+id/action_loginValidationFragment_to_profileSetupFragment"
+            app:destination="@id/profileSetupFragment" />
+    </fragment>
+</navigation>

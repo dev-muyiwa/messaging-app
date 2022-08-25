@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Messaging App</string>
+    <string name="settings">Settings</string>
+    <string name="profile">Profile</string>
+    <string name="sort">Sort</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="otp_verification">OTP Verification</string>
+    <string name="otp_text">We will send a One Time Passcode\nto the mobile number provided below</string>
+    <string name="enter_your_phone_number">Enter your phone number</string>
+    <string name="verify">Verify</string>
+    <string name="next">Next</string>
+    <string name="phone_login">Phone Login</string>
+    <string name="login">Login</string>
+    <string name="not_logged_in">You are not logged in</string>
+    <string name="tap_to_login">Tap to login</string>
+</resources>
