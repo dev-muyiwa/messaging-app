@@ -14,4 +14,10 @@
     <string name="login">Login</string>
     <string name="not_logged_in">You are not logged in</string>
     <string name="tap_to_login">Tap to login</string>
+    <string name="enter_otp">Enter the 6 digits OTP sent to your mobile number</string>
+    <string name="resend_code">Resend code</string>
+    <string name="profile_info">Profile Information</string>
+    <string name="fill_in_details"><![CDATA[Please fill in your name & an optional profile picture]]></string>
+    <string name="update">Update</string>
+    <string name="enter_your_username">Enter your username</string>
 </resources>

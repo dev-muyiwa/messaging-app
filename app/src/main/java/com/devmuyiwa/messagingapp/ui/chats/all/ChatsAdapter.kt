@@ -7,9 +7,8 @@ import com.devmuyiwa.messagingapp.R
 import com.devmuyiwa.messagingapp.data.Chat
 import com.devmuyiwa.messagingapp.databinding.LayoutAllChatsItemBinding
 
-class ChatsAdapter(var chatList: ArrayList<Chat>) : RecyclerView.Adapter<ChatsAdapter
-.ItemViewHolder>
-    () {
+class ChatsAdapter(var chatList: ArrayList<Chat>) :
+    RecyclerView.Adapter<ChatsAdapter.ItemViewHolder>() {
     inner class ItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding: LayoutAllChatsItemBinding = LayoutAllChatsItemBinding.bind(itemView)
     }
@@ -24,7 +23,7 @@ class ChatsAdapter(var chatList: ArrayList<Chat>) : RecyclerView.Adapter<ChatsAd
         val chat = chatList[position]
         holder.binding.apply {
             contactName.text = chat.name
-            contactImage.load(chat.profileImage) {placeholder(R.drawable.dummy)}
+            contactImage.load(chat.profileImage) { placeholder(R.drawable.dummy) }
         }
     }
 

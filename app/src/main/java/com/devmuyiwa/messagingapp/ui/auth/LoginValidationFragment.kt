@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.devmuyiwa.messagingapp.ui.auth
 
 import android.app.ProgressDialog
@@ -9,9 +11,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import com.devmuyiwa.messagingapp.R
+import com.devmuyiwa.messagingapp.data.User
 import com.devmuyiwa.messagingapp.databinding.FragmentLoginValidationBinding
-import com.google.firebase.FirebaseException
+import com.google.firebase.*
+import com.google.firebase.appcheck.FirebaseAppCheck
+import com.google.firebase.appcheck.playintegrity.PlayIntegrityAppCheckProviderFactory
 import com.google.firebase.auth.*
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.concurrent.TimeUnit
 
 private const val TAG = "LoginValidationFragment"
@@ -20,11 +26,20 @@ class LoginValidationFragment : Fragment() {
     private var _binding: FragmentLoginValidationBinding? = null
     private val binding get() = _binding!!
     private var mAuth: FirebaseAuth? = null
+    private var mFireStore: FirebaseFirestore? = null
     private var dialog: ProgressDialog? = null
     private val mSharedViewModel: SharedLoginViewModel by activityViewModels()
     private var mVerificationId: String? = null
     private var mResendToken: PhoneAuthProvider.ForceResendingToken? = null
-    private lateinit var phoneNo: String
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(requireContext())
+        val firebaseAppCheck = FirebaseAppCheck.getInstance()
+        firebaseAppCheck.installAppCheckProviderFactory(
+            PlayIntegrityAppCheckProviderFactory.getInstance()
+        )
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,32 +51,43 @@ class LoginValidationFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        mSharedViewModel.phoneNumber.observe(viewLifecycleOwner) { phoneNumber ->
-            phoneNo = phoneNumber
-        }
         mAuth = FirebaseAuth.getInstance()
+        mFireStore = FirebaseFirestore.getInstance()
         dialog = ProgressDialog(requireActivity())
-        startCredentialsVerification(phoneNo)
+        dialog?.setCancelable(false)
+        mSharedViewModel.phoneNumber.observe(viewLifecycleOwner) { phoneNum ->
+            startCredentialsVerification(phoneNum)
+        }
         binding.loginBtn.setOnClickListener {
             val smsCode = binding.otpCode.text.toString()
             verifyCredentials(mVerificationId!!, smsCode)
         }
     }
 
-
     private val callbacks = object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         override fun onVerificationCompleted(credential: PhoneAuthCredential) {
             Log.d(TAG, "onVerificationCompleted:$credential")
             dialog?.dismiss()
             signInWithPhoneAuthCredential(credential)
-            dialog?.setMessage("Signing In")
-            dialog?.show()
+
         }
 
         override fun onVerificationFailed(e: FirebaseException) {
-            Log.d(TAG, "onVerificationFailed:${e.message}", e)
+            Log.e(TAG, "onVerificationFailed:${e.message}", e)
             dialog?.dismiss()
-            Toast.makeText(requireContext(), "Invalid Phone Number", Toast.LENGTH_SHORT).show()
+            if (e is FirebaseTooManyRequestsException) {
+                Toast.makeText(requireContext(),
+                    "${e.message}",
+                    Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "Verification failed", Toast.LENGTH_SHORT).show()
+            }
+            binding.resendCode.visibility = View.VISIBLE
+            binding.resendCode.setOnClickListener {
+                mSharedViewModel.phoneNumber.observe(viewLifecycleOwner) { phoneNum ->
+                    startCredentialsVerification(phoneNum)
+                }
+            }
         }
 
         override fun onCodeSent(
@@ -90,27 +116,44 @@ class LoginValidationFragment : Fragment() {
 
     private fun verifyCredentials(verificationId: String, code: String) {
         val credential = PhoneAuthProvider.getCredential(verificationId, code)
-        dialog?.setMessage("Signing In")
-        dialog?.show()
         signInWithPhoneAuthCredential(credential)
     }
 
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
+        dialog?.setMessage("Signing In")
+        dialog?.show()
         mAuth!!.signInWithCredential(credential)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    dialog?.dismiss()
                     Log.d(TAG, "signInWithCredential:success")
-                    findNavController().navigate(R.id.profileSetupFragment)
-                } else {
+                    val user = task.result.user
+                    addUserToDatabase(user!!)
                     dialog?.dismiss()
-                    Log.w(TAG, "signInWithCredential:failure", task.exception)
-                    Toast.makeText(requireContext(), "Verification Failed", Toast.LENGTH_SHORT)
+                } else {
+                    Log.e(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(requireContext(), "Sign In Failed", Toast.LENGTH_SHORT)
                         .show()
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         Log.d(TAG, "verifyWithCode:invalid code")
                     }
+                    dialog?.dismiss()
                 }
+            }
+    }
+
+    private fun addUserToDatabase(user: FirebaseUser) {
+        val users = User(
+            user.uid,
+            "",
+            user.phoneNumber!!,
+            ""
+        )
+        mFireStore?.collection("Users")!!.document(user.uid)
+            .set(users).addOnSuccessListener {
+                Log.d(TAG, "addUserToDatabase: success")
+                findNavController().navigate(R.id.action_loginValidationFragment_to_profileSetupFragment)
+            }.addOnFailureListener { e ->
+                Log.e(TAG, "addUserToDatabase: failed", e)
             }
     }
 

@@ -10,14 +10,16 @@
     tools:context=".ui.auth.LoginFragment">
 
     <ImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:scaleType="centerCrop"
+        android:layout_marginTop="32dp"
         app:srcCompat="@drawable/login_image" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
         android:fontFamily="@font/poppins_bold"
         android:text="@string/phone_login"
         android:textAlignment="center"
@@ -51,23 +53,23 @@
             <com.hbb20.CountryCodePicker
                 android:id="@+id/country_code"
                 android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:background="@drawable/search_bg"
-                app:ccp_showPhoneCode="true"
-                app:ccp_autoDetectCountry="true"
-                app:ccp_countryAutoDetectionPref="SIM_NETWORK_LOCALE"
-                app:ccp_textSize="16sp"
-                app:ccp_showNameCode="false"
                 android:padding="6dp"
+                app:ccp_autoDetectCountry="true"
                 app:ccp_contentColor="?attr/colorControlNormal"
+                app:ccp_countryAutoDetectionPref="SIM_NETWORK_LOCALE"
                 app:ccp_showFlag="false"
-                android:layout_height="wrap_content"/>
+                app:ccp_showNameCode="false"
+                app:ccp_showPhoneCode="true"
+                app:ccp_textSize="16sp" />
 
             <EditText
                 android:id="@+id/phone_number_entry"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/country_code"
                 android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/country_code"
                 android:background="@drawable/search_bg"
                 android:ems="1"
                 android:hint="@string/enter_your_phone_number"

@@ -10,28 +10,31 @@
         android:id="@+id/not_logged_in_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical"
-        android:gravity="center">
+        android:visibility="gone">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:text="@string/not_logged_in"
             android:textAlignment="center"
-            android:textSize="18sp"
-            android:text="@string/not_logged_in"/>
+            android:textSize="18sp" />
+
         <Button
             android:id="@+id/login_btn"
+            style="@style/Theme.MessagingApp.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="@style/Theme.MessagingApp.Button"
-            android:text="@string/tap_to_login"/>
+            android:text="@string/tap_to_login" />
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/logged_in_view"
         android:layout_width="match_parent"
-        android:visibility="gone"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <androidx.appcompat.widget.SearchView
             android:id="@+id/search_view"
@@ -46,8 +49,11 @@
             android:id="@+id/all_chats_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="14dp"
-            tools:listitem="@layout/layout_all_chats_item" />
+            android:layout_marginTop="24dp"
+            tools:listitem="@layout/layout_all_chats_item">
+
+            <requestFocus />
+        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

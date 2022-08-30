@@ -3,16 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="16dp"
     xmlns:tools="http://schemas.android.com/tools">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/contact_image"
-        android:layout_width="65dp"
-        android:layout_height="65dp"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         android:src="@drawable/dummy"
+        app:layout_constraintStart_toStartOf="parent"
+        app:civ_circle_background_color="#D3D3D3"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -20,9 +21,10 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:fontFamily="@font/poppins_bold"
-        android:textSize="24sp"
+        android:fontFamily="@font/poppins_regular"
+        android:textSize="20sp"
         android:maxLines="1"
+        android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/status"
         app:layout_constraintStart_toEndOf="@+id/contact_image"
         app:layout_constraintTop_toTopOf="@+id/contact_image"

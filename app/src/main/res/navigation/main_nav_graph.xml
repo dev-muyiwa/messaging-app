@@ -7,7 +7,7 @@
     <fragment
         android:id="@+id/allChatsFragment"
         android:name="com.devmuyiwa.messagingapp.ui.chats.all.AllChatsFragment"
-        android:label="fragment_all_chats"
+        android:label="Chats"
         tools:layout="@layout/fragment_all_chats" >
         <action
             android:id="@+id/action_allChatsFragment_to_individualChatsFragment"
