@@ -146,7 +146,7 @@ class LoginValidationFragment : Fragment() {
             user.uid,
             "",
             user.phoneNumber!!,
-            ""
+            "",
         )
         mFireStore?.collection("Users")!!.document(user.uid)
             .set(users).addOnSuccessListener {

@@ -4,16 +4,20 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/drawable/dummy.xml" value="0.1" />
+        <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/drawable/received_bg.xml" value="0.1" />
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/drawable/search_bg.xml" value="0.1195" />
+        <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/drawable/sent_bg.xml" value="0.1" />
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/font/poppins.xml" value="0.14074074074074075" />
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/activity_main.xml" value="0.1787037037037037" />
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/custom_dialog_layout.xml" value="0.33" />
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/fragment_all_chats.xml" value="0.22" />
-        <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/fragment_individual_chats.xml" value="0.14722222222222223" />
+        <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/fragment_individual_chats.xml" value="0.33" />
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/fragment_login.xml" value="0.1787037037037037" />
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/fragment_login_validation.xml" value="0.1787037037037037" />
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/fragment_profile_setup.xml" value="0.22" />
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/layout_all_chats_item.xml" value="0.25" />
+        <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/layout_received_message.xml" value="0.22" />
+        <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/layout/layout_sent_message.xml" value="0.22" />
         <entry key="..\:/Users/muyiw/Documents/MessagingApp/app/src/main/res/menu/toolbar_menu.xml" value="0.14722222222222223" />
       </map>
     </option>

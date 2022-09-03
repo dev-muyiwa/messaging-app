@@ -7,8 +7,7 @@
     <fragment
         android:id="@+id/allChatsFragment"
         android:name="com.devmuyiwa.messagingapp.ui.chats.all.AllChatsFragment"
-        android:label="Chats"
-        tools:layout="@layout/fragment_all_chats" >
+        tools:layout="@layout/fragment_all_chats">
         <action
             android:id="@+id/action_allChatsFragment_to_individualChatsFragment"
             app:destination="@id/individualChatsFragment" />
@@ -16,18 +15,19 @@
     <fragment
         android:id="@+id/individualChatsFragment"
         android:name="com.devmuyiwa.messagingapp.ui.chats.individual.IndividualChatsFragment"
-        android:label="fragment_individual_chats"
-        tools:layout="@layout/fragment_individual_chats" >
+        tools:layout="@layout/fragment_individual_chats">
         <action
             android:id="@+id/action_individualChatsFragment_to_allChatsFragment"
             app:destination="@id/allChatsFragment"
             app:popUpTo="@id/allChatsFragment"
             app:popUpToInclusive="true" />
+        <argument
+            android:name="currentRecipient"
+            app:argType="com.devmuyiwa.messagingapp.data.Chat" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.devmuyiwa.messagingapp.ui.auth.LoginFragment"
-        android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
             android:id="@+id/action_loginFragment_to_loginValidationFragment"
@@ -36,7 +36,6 @@
     <fragment
         android:id="@+id/profileSetupFragment"
         android:name="com.devmuyiwa.messagingapp.ui.auth.ProfileSetupFragment"
-        android:label="fragment_profile_setup"
         tools:layout="@layout/fragment_profile_setup" />
     <fragment
         android:id="@+id/loginValidationFragment"

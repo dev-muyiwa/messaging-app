@@ -15,6 +15,7 @@ import com.devmuyiwa.messagingapp.data.Chat
 import com.devmuyiwa.messagingapp.databinding.FragmentAllChatsBinding
 import com.devmuyiwa.messagingapp.ui.MainActivity
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.database.*
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 
@@ -26,7 +27,6 @@ class AllChatsFragment : Fragment() {
     private var mAuth: FirebaseAuth? = null
     private var mFirestore: FirebaseFirestore? = null
     private val chats: ArrayList<Chat> = ArrayList()
-    private var chatsAdapter: ChatsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +46,8 @@ class AllChatsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         (activity as MainActivity).supportActionBar?.title = "Chats"
         inflateToolbarMenu()
+//        getLastMessage()
         validateUserSignIn()
-
     }
 
     override fun onResume() {
@@ -104,17 +104,20 @@ class AllChatsFragment : Fragment() {
             }
         } else {
             binding.apply { toggleVisibility(loggedInView, notLoggedInView) }
-            launchUsersScreen()
+            setupRecyclerView()
         }
     }
 
-    private fun launchUsersScreen() {
-        chatsAdapter = ChatsAdapter(chats)
+    private fun setupRecyclerView() {
+        val chatsAdapter = ChatsAdapter(requireContext(), chats)
         mFirestore?.collection("Users")!!.get()
             .addOnSuccessListener { result ->
                 for (document in result) {
                     val user = document.toObject(Chat::class.java)
-                    if (user.uid != mAuth?.currentUser!!.uid) chats.add(user)
+                    if (user.uid != mAuth?.currentUser!!.uid && user !in chats) {
+//                        getLastMessage(user)
+                        chats.add(user)
+                    }
                 }
                 chatsAdapter!!.notifyDataSetChanged()
                 Log.d(TAG, "$chats")
@@ -123,10 +126,25 @@ class AllChatsFragment : Fragment() {
                 Log.e(TAG, it.message, it)
             }
         binding.allChatsRecyclerView.apply {
+            setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL,
                 false)
             adapter = chatsAdapter
         }
+    }
+
+    private fun getLastMessage(user: Chat) {
+        FirebaseDatabase.getInstance().reference.child("MessageList").child(mAuth?.uid!!)
+            .child(user.uid).addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val lastMessage = snapshot.child("last_message").value as String
+//                    user.lastMessage = lastMessage
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+
+                }
+            })
     }
 
     private fun toggleVisibility(toVisible: View, toInvisible: View) {

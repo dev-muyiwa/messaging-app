@@ -20,4 +20,5 @@
     <string name="fill_in_details"><![CDATA[Please fill in your name & an optional profile picture]]></string>
     <string name="update">Update</string>
     <string name="enter_your_username">Enter your username</string>
+    <string name="message">Message...</string>
 </resources>
